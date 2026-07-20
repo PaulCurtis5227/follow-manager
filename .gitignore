@@ -1,0 +1,9 @@
+node_modules/
+*.log
+.DS_Store
+Thumbs.db
+dist/
+# IDE
+.idea/
+# Local agent guidance (kept local; may contain machine-specific paths)
+CLAUDE.md

@@ -1,0 +1,18 @@
+{
+    "name": "follow-manager",
+    "version": "0.1.0",
+    "private": true,
+    "license": "GPL-3.0-or-later",
+    "author": "Paul Curtis",
+    "description": "Dev/release tooling for the Follow Manager Sauce4Zwift mod (the mod itself is plain HTML/JS under pages/).",
+    "scripts": {
+        "test": "node --test",
+        "dev-link": "node scripts/dev-link.mjs",
+        "build": "node scripts/build.mjs",
+        "install-release": "node scripts/install-release.mjs",
+        "package": "node scripts/package.mjs",
+        "preversion": "npm test",
+        "version": "node scripts/sync-version.mjs",
+        "postversion": "node scripts/package.mjs"
+    }
+}

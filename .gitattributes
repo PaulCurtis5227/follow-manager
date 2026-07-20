@@ -1,0 +1,2 @@
+# Keep local agent guidance out of `git archive` release zips even if it ever gets tracked again.
+CLAUDE.md export-ignore

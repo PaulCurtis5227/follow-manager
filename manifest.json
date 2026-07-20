@@ -1,0 +1,24 @@
+{
+    "manifest_version": 1,
+    "id": "follow-manager",
+    "name": "Follow Manager",
+    "description": "Manage your Zwift follows: follow back everyone who follows you, bulk-prune one-way follows toward a target, and detect hidden/phantom follow slots that silently consume your 5000-follow limit.",
+    "version": "0.1.0",
+    "author": "Paul Curtis",
+    "web_root": "pages",
+    "windows": [
+        {
+            "file": "pages/control.html",
+            "id": "fm-control",
+            "name": "Follow Manager — Control",
+            "description": "Follow/unfollow management: follow-back, targeted pruning, and follow-count verification.",
+            "frame": true,
+            "default_bounds": {
+                "width": 620,
+                "height": 860,
+                "x": 0.08,
+                "y": 0.06
+            }
+        }
+    ]
+}

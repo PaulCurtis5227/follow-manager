@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<!--
+  Follow Manager — a Sauce for Zwift mod.
+  Copyright (C) 2026 Paul Curtis
+  SPDX-License-Identifier: GPL-3.0-or-later
+
+  This program is free software: you can redistribute it and/or modify it under the terms of the
+  GNU General Public License as published by the Free Software Foundation, either version 3 of the
+  License, or (at your option) any later version. This program is distributed WITHOUT ANY WARRANTY;
+  see the GNU General Public License <https://www.gnu.org/licenses/> for details.
+-->
+<html tabindex="0" data-settings-key="follow-manager-settings-v1">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"/>
+    <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline';"/>
+    <title>Follow Manager — Control</title>
+    <script src="/pages/src/preloads.js"></script>
+    <link rel="stylesheet" href="/pages/css/common.css"/>
+    <link rel="stylesheet" href="control.css"/>
+    <script type="module">
+        import {main} from './control.mjs';
+        main();
+    </script>
+</head>
+<body>
+<div id="fm" class="fm-control">
+
+    <header class="fm-header">
+        <div class="title-block">
+            <div class="title">👥 Follow Manager <span class="version" id="appVersion"></span></div>
+            <div class="byline">By Paul Curtis</div>
+        </div>
+        <button class="fm-btn" id="btnRefresh" title="Re-read your follow lists from Sauce">↻ Refresh</button>
+    </header>
+
+    <!-- Verification / phantom-slot detection -->
+    <section class="fm-verify">
+        <div class="quota">
+            <div class="quota-line">
+                <span class="quota-label">Following</span>
+                <span class="quota-num"><b id="quotaNow">–</b> / <span id="quotaLimit">5000</span></span>
+                <span class="quota-slots" id="quotaSlots"></span>
+            </div>
+            <div class="quota-bar"><div class="quota-fill" id="quotaFill"></div></div>
+        </div>
+        <div class="verify-inputs">
+            <label>Zwift shows I'm following
+                <input type="number" id="expFollowing" min="0" step="1" placeholder="e.g. 4987"/>
+            </label>
+            <label>Zwift shows my followers
+                <input type="number" id="expFollowers" min="0" step="1" placeholder="e.g. 5000"/>
+            </label>
+            <span class="verify-hint">Read these from the Zwift app / zwift.com profile.</span>
+        </div>
+        <div class="verify-banner" id="verifyBanner"></div>
+    </section>
+
+    <!-- Summary -->
+    <section class="fm-summary" id="summary"></section>
+
+    <!-- Progress (shared by both actions) -->
+    <section class="fm-progress hidden" id="progressBox">
+        <div class="progress-head">
+            <span id="progressLabel">Working…</span>
+            <button class="fm-btn danger" id="btnStop">■ Stop</button>
+        </div>
+        <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+        <div class="progress-text" id="progressText"></div>
+    </section>
+
+    <!-- Follow back -->
+    <section class="fm-section">
+        <h2>Follow back <small id="fbNote"></small></h2>
+        <p class="section-desc">People who follow you that you don't follow back. Remove anyone you
+            want to skip, then follow the rest.</p>
+        <div class="section-tools">
+            <button class="fm-btn primary" id="btnFollowAll">Follow all</button>
+        </div>
+        <ul class="fm-list" id="followBackList"></ul>
+        <div class="list-overflow" id="fbOverflow"></div>
+    </section>
+
+    <!-- Prune following -->
+    <section class="fm-section">
+        <h2>Prune following <small id="prNote"></small></h2>
+        <p class="section-desc">Unfollow to free up slots. By default this lists people you follow
+            who don't follow you back.</p>
+        <div class="section-tools prune-tools">
+            <label class="inline">How many to remove
+                <input type="number" id="pruneTarget" min="0" step="1" value="0"/>
+            </label>
+            <label class="inline checkbox">
+                <input type="checkbox" id="pruneAll"/> Select all
+            </label>
+            <label class="inline checkbox">
+                <input type="checkbox" id="prunePoolAll"/> Include mutuals (all following)
+            </label>
+            <button class="fm-btn danger" id="btnUnfollow">Unfollow selected</button>
+        </div>
+        <ul class="fm-list" id="pruneList"></ul>
+        <div class="list-overflow" id="prOverflow"></div>
+    </section>
+
+    <!-- Settings -->
+    <details class="fm-settings">
+        <summary>Settings</summary>
+        <label>Delay between actions (ms) — higher is gentler on Zwift's rate limits
+            <input type="number" id="throttleMs" min="0" max="10000" step="50" value="600"/>
+        </label>
+        <label class="checkbox">
+            <input type="checkbox" id="confirmBeforeRun" checked/> Confirm before each bulk action
+        </label>
+    </details>
+
+    <!-- Activity log -->
+    <details class="fm-log-wrap" open>
+        <summary>Activity log</summary>
+        <ul id="log" class="fm-log"></ul>
+    </details>
+
+</div>
+</body>
+</html>
